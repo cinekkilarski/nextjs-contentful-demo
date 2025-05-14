@@ -1,4 +1,4 @@
-import client from "@/lib/contentful";
+import { contentfulClient } from "@/lib";
 import Link from "next/link";
 
 export default async function ContentfulPreviewPage() {
@@ -7,7 +7,7 @@ export default async function ContentfulPreviewPage() {
   try {
     // We can't use getSpace directly with the delivery client
     // Let's try to get a single entry instead
-    const entries = await client.getEntries({
+    const entries = await contentfulClient.getEntries({
       limit: 1,
     });
 

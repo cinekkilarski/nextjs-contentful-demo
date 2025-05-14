@@ -1,10 +1,9 @@
-import { createClient } from "contentful";
 import type { EntrySkeletonType, Entry } from "contentful";
+import client from "./client";
+import { BlogPost } from "@/types/contentful";
+import { contentfulConfig } from "@/config";
 
-const client = createClient({
-  space: process.env.CONTENTFUL_SPACE_ID || "",
-  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN || "",
-});
+const { contentTypes } = contentfulConfig;
 
 export const getEntries = async <T extends EntrySkeletonType>(
   contentType: string,
@@ -25,4 +24,15 @@ export const getEntry = async <T extends EntrySkeletonType>(
   return entry;
 };
 
-export default client;
+export const getBlogPosts = async () => {
+  return getEntries<BlogPost>(contentTypes.blogPage, {});
+};
+
+export const getBlogPostByTitle = async (title: string) => {
+  const posts = await getEntries<BlogPost>(contentTypes.blogPage, {
+    "fields.title": title,
+    limit: 1,
+  });
+
+  return posts[0] || null;
+};

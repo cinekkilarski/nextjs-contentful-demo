@@ -1,7 +1,8 @@
-import Link from "next/link";
-import { getBlogPosts } from "@/lib";
+import { getBlogPosts } from "@/lib/contentful/queries";
 import type { ContentfulAsset } from "@/types/contentful";
-import { PageTransition, AnimatedImage } from "@/components";
+import Link from "next/link";
+import PageTransition from "@/components/ui/page-transition";
+import AnimatedImage from "@/components/ui/animated-image";
 
 export default async function Home() {
   const posts = await getBlogPosts();
@@ -14,7 +15,7 @@ export default async function Home() {
           <h1 className="text-4xl font-bold mb-6">
             Welcome to Contentful Blog
           </h1>
-          <p className="text-xl mb-8 font-bold tagline">
+          <p className="text-xl text-gray-700 dark:text-gray-300 mb-8">
             A modern blog built with Next.js and Contentful headless CMS.
           </p>
           <Link
